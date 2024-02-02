@@ -9,7 +9,7 @@ RUN apt-get update &&\
 WORKDIR /usr/src/app
 
 # Install Flask and requests using pip
-RUN pip install Flask requests Flask-HTTPAuth
+RUN pip install Flask requests Flask-HTTPAuth gunicorn
 
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
