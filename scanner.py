@@ -39,8 +39,20 @@ def parse_scan_results(results):
 @app.route('/scan', methods=['POST'])
 @auth.login_required
 def scan_url():
-    # Existing code for scanning a file from URL remains unchanged
-    pass
+    try:
+        file_url = request.json['url']
+        local_filename = file_url.split('/')[-1]
+        # Stream download to handle large files
+        with requests.get(file_url, stream=True) as r:
+            with open(local_filename, 'wb') as f:
+                for chunk in r.iter_content(chunk_size=8192): 
+                    f.write(chunk)
+        scan_results = scan_file(local_filename)
+        os.remove(local_filename)  # Clean up the downloaded file
+        parsed_results = parse_scan_results(scan_results)
+        return jsonify(parsed_results)
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 @app.route('/scan_files', methods=['POST'])
 @auth.login_required
