@@ -1,9 +1,19 @@
 from flask import Flask, request, jsonify
+from flask_httpauth import HTTPTokenAuth
 import requests
 import os
 from subprocess import Popen, PIPE
 
 app = Flask(__name__)
+auth = HTTPTokenAuth(scheme='Bearer')
+
+TOKEN = os.environ.get('AUTH_TOKEN', 'default-token')
+
+@auth.verify_token
+def verify_token(token):
+    if token == TOKEN:
+        return True
+    return None
 
 def scan_file(file_path):
     process = Popen(['clamdscan', '--fdpass', file_path], stdout=PIPE, stderr=PIPE)
@@ -25,6 +35,7 @@ def parse_scan_results(results):
     return {'infected': infected, 'viruses': viruses}
 
 @app.route('/scan', methods=['POST'])
+@auth.login_required
 def scan_url():
     try:
         file_url = request.json['url']
@@ -40,6 +51,10 @@ def scan_url():
         return jsonify(parsed_results)
     except Exception as e:
         return jsonify({"error": str(e)})
+
+@app.route('/health', methods=['GET'])
+def healthcheck():
+    return jsonify({"status": "ok"})
         
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
