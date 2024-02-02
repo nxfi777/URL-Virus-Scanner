@@ -17,5 +17,10 @@ COPY . .
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
-# Run app.py when the container launches
-CMD ["python", "scanner.py"]
+# Copy the entrypoint script
+COPY entry.sh /usr/src/app
+
+RUN chmod +x /usr/src/app/entry.sh
+
+# Make the script the container's entrypoint
+ENTRYPOINT ["/usr/src/app/entry.sh"]
