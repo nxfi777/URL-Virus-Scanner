@@ -48,6 +48,7 @@ def scan_url():
                 for chunk in r.iter_content(chunk_size=8192): 
                     f.write(chunk)
         scan_results = scan_file(local_filename)
+        print(scan_results)
         os.remove(local_filename)  # Clean up the downloaded file
         parsed_results = parse_scan_results(scan_results)
         return jsonify(parsed_results)
@@ -66,6 +67,7 @@ def scan_files():
             file.save(temp_file.name)
             # Scan the file
             scan_results = scan_file(temp_file.name)
+             print(scan_results)
             # Clean up the temporary file
             os.unlink(temp_file.name)
             parsed_results = parse_scan_results(scan_results)
