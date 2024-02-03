@@ -67,7 +67,7 @@ def scan_files():
             file.save(temp_file.name)
             # Scan the file
             scan_results = scan_file(temp_file.name)
-             print(scan_results)
+            print(scan_results)
             # Clean up the temporary file
             os.unlink(temp_file.name)
             parsed_results = parse_scan_results(scan_results)
