@@ -3,7 +3,6 @@ from flask_httpauth import HTTPTokenAuth
 import requests
 import os
 from subprocess import Popen, PIPE
-from werkzeug.utils import secure_filename
 import tempfile
 
 app = Flask(__name__)
