@@ -71,6 +71,7 @@ def scan_files():
         results = []
         for file in files:
             # Save file to a temporary file
+            print(file)
             temp_file = tempfile.NamedTemporaryFile(delete=False)
             file.save(temp_file.name)
             file_checksum = calculate_checksum(temp_file.name)
