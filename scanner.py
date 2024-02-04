@@ -67,7 +67,9 @@ def scan_url():
 @auth.login_required
 def scan_files():
     try:
+        print('test')
         files = request.files.getlist("files")
+        print(files)
         results = []
         for file in files:
             # Save file to a temporary file
