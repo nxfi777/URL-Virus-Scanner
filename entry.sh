@@ -4,4 +4,4 @@ service clamav-daemon start
 service clamav-freshclam start
 
 # Then start the scanner.py Flask app with Gunicorn
-exec gunicorn -w 4 -b [::]:5000 scanner:app
+exec gunicorn -b [::]:5000 scanner:app
