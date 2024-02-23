@@ -1,7 +1,6 @@
 <p align="center">
   <img style="width: 200px" src="https://i.imgur.com/XOgMz08.png" alt="URL VIRUS SCANNER">
   <h2 align="center">VIRUS SCANNER</h3>
-  <pre>Warning: Heavy memory usage</pre>
 
   <p align="center">
     <a href="https://railway.app/template/wq4sNq?referralCode=bncQEM">
